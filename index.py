@@ -7,12 +7,35 @@ import time
 from random import *
 pygame.init()
 
+pygame.display.set_caption('Guess My Number')
+
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
 COLOR_BOX = (255, 255, 255)
 COLOR_BOX_TRANSPERANCT = (0, 0, 0, 0)
 BOX = 35
-NUMBER_RESULT = list(map(int, str(randint(1000, 9999))))
+# NUMBER_RESULT = list(map(int, str(randint(1000, 9999))))
+
+
+def genNumber0To9():
+    return randint(0, 9)
+
+def genNumberWithoutDuplicate(lenNumber = 4):
+    numberGen = []
+    running = True
+    count = 0
+    while running:
+        count += 1
+        number = genNumber0To9()
+        if number not in numberGen:
+            numberGen.append(number)
+        if count > 2000:
+            running = False
+        if len(numberGen) == lenNumber:
+            running = False
+    return numberGen
+
+NUMBER_RESULT = genNumberWithoutDuplicate()
 print('NUMBER_RESULT', NUMBER_RESULT)
 
 FULL_ARRAY_INPUT_DEFAULT = [[],[],[],[],[],[],[],[],[],[]]
@@ -168,7 +191,7 @@ while running:
                 print('SUCCESS')
                 Mbox('SUCCESS', 'Đoán đúng rùi còn định bắt người ta phục vụ nữa hả?????', 1)
             elif isSuccess == False:
-                Mbox('HÔ HÔ', 'Chơi lại đi', 1)
+                Mbox('HÔ HÔ', 'Gà =)))))))))))))))))', 1)
             else:
                 drawWrapped()
                 if event.key == pygame.K_0 or event.key == pygame.K_KP0:
